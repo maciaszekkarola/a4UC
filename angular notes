@@ -57,6 +57,11 @@ getStatus() {
 html:
 <button [disabled]="!online"></>
 
+///////////////////
+można też bezpośrednio w properties robić warunki
+
+[disabled] = "name==='' " 
+
 Events:
 ts: 
 
@@ -66,6 +71,28 @@ onAddingColor() {
 
 html:
 <button (click) = "onAddingColor()">
+
+Two way binding na dwie metody:
+przez event
+1. nakładam event na np. input z paramentrem ($event)
+2. tworzę propsa w klasie
+3. pisze funkcje ktora jest dodana do inputa
+onUpdateServer(event: Event) {
+    this.serverName = (<HTMLInputElement>event.target).value;
+  }
+
+props jest renderowany w htmly za pomoca interpolacji.
+przez wbudowane metody event.targetu dostaję się do value. ale ze argument funkcji event: przypasowuję do wbudowanego interfejsu Event to muszę dopisać całą tą część <HTMLInputElement>
+
+1.[(ngModel)] - easy to way databiding
+konieczna jest importacja FormsModule w app.module.ts i wpisanie go w importach.
+
+ts: 
+name: string = 'zosia'
+
+html:
+<input [(ngmodel)]="name">
+<p> {{name}} </p>
 
 
 
