@@ -1,0 +1,73 @@
+1. adding bootstrap to app
+npm install --save bootstrap
+
+angular-cli.json - w pliku inportuję bootstrapa
+
+"styles":[
+"../node_modules/bootstrap/dist/css/bootstrap.min.css",
+"style.css"
+ 
+2. w componencie w linii styleUrls
+mozna w tablicy dodać wiele plikow.css ale jesli uzywam sassa to nie ma potrzeby bo sa importy
+
+3. jest kilka opcji wyboru nadanie nazwy dla selektora: 
+- po atrybucie
+selector : '[app-servers]'
+wtedy wywołanei w html: 
+<div app-servers></div>
+
+-opcja po klasie 
+selector: '.app-servers'
+wywołanie 
+<div class = "app-servers"
+
+4. data binding!communication
+=>html
+string interpolaction {{data}}
+property bining [property] = "data"
+
+<= html
+event binding (event) = "expression"
+
+tow-way data binding
+[(ngModel)]="data"
+
+w interpolacji mozna wywolywac funckje!
+props w kasie:
+serverStatus: string = "offline";
+
+ts:
+getServerStatus () {
+return this.serverStatus.
+}
+html:
+{{ getServerStatus() }}
+
+property binding:
+często łączą się z funkcjami by zmienic status propsa. opierają się na zasadzie true/false
+
+ts:
+online: false
+
+class:
+getStatus() {
+ this. online = true;
+}
+
+html:
+<button [disabled]="!online"></>
+
+Events:
+ts: 
+
+onAddingColor() {
+...
+}
+
+html:
+<button (click) = "onAddingColor()">
+
+
+
+
+

@@ -1,0 +1,12 @@
+.redClass h3{
+    color: red;
+    padding: 20px;
+    border: 1px solid red;
+    background-color: mistyrose;
+}
+.greenClass h3 {
+    color: green;
+    padding: 20px;
+    border: 1px solid darkgreen;
+    background-color: #62E962;
+}
