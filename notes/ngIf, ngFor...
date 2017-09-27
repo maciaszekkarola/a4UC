@@ -38,3 +38,18 @@ tutaj jest uzależniony od propsa, czy jego wartośc to 'online' czy 'offline'
 
 
 NGFOR
+ts:
+props
+servers: string[]= ['TestServer1', 'TestServer2'];
+
+
+po kliknięciu w button funkcja wrzuca serverName do tablicy servers
+
+onCreateServer() {
+    this.serverCreated = true;
+    this.servers.push(this.serverName);
+    this.serverCreationStatus = `server was created! Name is ${this.serverName}`;
+  }
+
+
+<app-server *ngFor="let server of servers"></app-server>

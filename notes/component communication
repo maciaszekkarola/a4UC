@@ -1,0 +1,153 @@
+Componnet Communication
+
+Custom property binding
+
+@INPUT!
+1. w komponencie dziecka importujuę import { Input } from '@angular/core';
+
+dodaję dekorator do propsa element:
+w klasie w dekoratorze Inputa deklaruję typy propsów:
+
+export class ServerElementComponent implements OnInit {
+  @Input() element: {type: string, name: string, content: string};
+
+2. w komponencie rodzica:
+
+żeby wykorzystać typ z dziecka tworzę propsa (w tym przypadku tablicę obiektów - obiektów ponieważ props element: w dziecku jest obiektem!)
+
+ serverElements = [{
+    type: 'server',
+    name: 'testserver',
+    content: 'some content'
+
+  },
+  {
+    type: 'server2',
+    name: 'testserver2',
+    content: 'some content2'
+
+  },
+  {
+    type: 'server3',
+    name: 'testserver3',
+    content: 'some content3'
+
+  }];
+  
+}
+
+w html:
+iteruję po tablicy ngForem zeby wydobyc wszystkie elementy i wyswietlam je przez property binding
+
+<app-server-element 
+      *ngFor="let serverElement of serverElements"
+      [element]="serverElement"
+    >
+    </app-server-element>
+
+[element]="serverElement" jest kluczowe po łączy rodzica z dzieckiem!
+
+////////
+opcja łaczenia kompontów przez Aliar w Inpucie
+
+@Input('aliasName') element: {type: string, name: string, content: string};
+
+
+w rodzicu wykorzystanie tego inputa odbywa się przez wpisanie w atrybut 'aliasName'
+[aliasName]="serverElement"
+
+/////////////////////////////////
+//////////////////////////////////
+
+Komunikacja dziecko => Rodzic
+@Output
+
+w dziecku:
+
+importuję Output i EventEmitter - będą potrzebne żeby wysyłać eventy do rodzica
+tworze propsa i dodaję dekorator @Output
+
+  @Output() serverCreated = new EventEmitter <{serverName: string, serverContent: string}>(); 
+
+
+props serverCreated jest tworzony na wzór EmiteraEventów z ang/core (click, mouseover itp) 
+
+w ostrych nawiastach daję obiekt jaki chce żeby był przesłany
+klucze obiketu będą takie same w rodzicu i reprezentują wysylane dane
+
+WAŻNĘ by wywołać nowyEventEmitter <{x:y}> (); !!!!
+
+tworzę propsy które będa wartością dla kluczy w rodzicu
+
+
+potem tworze funkcję, którą podłączam do html 
+
+
+  onAddServer() {
+    this.serverCreated.emit({
+      serverName: this.newServerName, 
+      serverContent: this.newServerContent
+    });
+  }
+
+html:     <button
+      class="btn btn-primary"
+      (click)="onAddServer()">Add Server</button>
+    <button
+
+
+////////
+w rodzicu!
+
+w html:
+
+  <app-cockpit
+    (serverCreated)="onServerAdded($event)"
+    (blueprintCreated)="onBlueprintAdded($event)"
+    
+  >
+</app-cockpit>
+
+
+
+w miejscu gdzie renderuję dziecko do htmlowego tagu dodaję event.
+tu ważne! EventEmitter jest pobrany od dziecka (props z @Outputem!) a callback to funkcja którą stworzę w ts.
+
+
+ts:tworzę funkcję z paramentrem z typem obiektu, musi być on takki sam jak w eventEmitterze w dziecku!
+wewnątrz funckji pushuję do propsa serverElements, który jest tabicą obiektów
+
+ onServerAdded(serverData: {serverName: string, serverContent: string}) {
+    this.serverElements.push({
+      type: 'server',
+      name: serverData.serverName,
+      content: serverData.serverContent
+    });
+  }
+
+
+tak wygląda props w klasie:
+serverElements = [{
+    type: 'server',
+    name: 'testserver',
+    content: 'some content'
+  }];
+
+tak samo z aliasami jak w Inpucie
+
+w dziecku dodaję alias do Outputa:
+
+
+@Output('aliasName') serverCreated = new EventEmitter.....
+
+w rodzicu w html:
+<button (aliasName)="eventStart()"
+
+
+
+
+
+
+
+
+
