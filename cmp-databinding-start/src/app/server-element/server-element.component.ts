@@ -45,7 +45,7 @@ OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked {
 
   ngAfterContentChecked() {
     console.log('acchecked');
-    console.log(this.heading.nativeElement.innerText);
+    console.log(this.heading.nativeElement.textContent);
     
   }
 
