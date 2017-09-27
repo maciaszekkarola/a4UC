@@ -1,0 +1,55 @@
+Local reference:
+
+
+ <input 
+      type="text" 
+      class="form-control" 
+      #serverNameInput>
+
+    <button
+      class="btn btn-primary"
+      (click)="onAddServer(serverNameInput)">Add Server</button>
+
+ts:
+
+  onAddServer(nameInput: HTMLInputElement) {
+    this.serverCreated.emit({
+      serverName: nameInput.value, 
+      serverContent: this.newServerContent
+    });
+  }
+
+//////////////////////
+local references i @viewChild
+
+1. nadaję lokalną referecję tagowi
+#serverContentInput
+
+w ts:
+importuję z core @viewChild i ElementRef i wpisuję jako argument nazwę lokalnej referencji
+
+@ViewChild('serverContentInput') serverContentInput: ElementRef;
+
+(ElementRef jest to wbudowana opcja angulara która pozwala na używanie typu referencji)
+
+onAddServer(nameInput: HTMLInputElement) {
+    console.log(this.serverContentInput);
+    this.serverCreated.emit({
+      serverName: nameInput.value, 
+      serverContent: this.serverContentInput.nativeElement.value
+    });
+  }
+
+odwołując się do pierwotnej wartości elementu (inputa) a #referencją musze dodać .nativeElement
+
+ 
+/// 
+w tym przykladzie mamy dwa rozwiazania
+
+odwolanie sie do wartosci inputa przez referencje w sposob bezposredni - czyli wrzucając do eventu(#localnarederencje)
+albo opcja przy uzyciu wbudowanych narędzi, przy użyciu @ViewChild('loclareference')  i .nativeElement.value.
+
+
+
+
+

@@ -16,7 +16,6 @@ export class CockpitComponent implements OnInit {
   }
 
   onAddServer(nameInput: HTMLInputElement) {
-    console.log(this.serverContentInput);
     this.serverCreated.emit({
       serverName: nameInput.value, 
       serverContent: this.serverContentInput.nativeElement.value
