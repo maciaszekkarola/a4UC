@@ -17,6 +17,30 @@
 
   <hr>
   <div class="row">
-    <app-game-control></app-game-control>
+    <div class="col-xs-12">
+        
+      <app-game-control
+          (counterData)="onIntervalStart($event)"
+          (intervalStopped)="onIntervalStop($event)"
+        >
+        </app-game-control>
+  
+    </div>
+  </div>
+
+  <hr>
+  <div class="row">
+    <div class="col-xs-12">
+      <app-odd 
+        *ngFor="let odd of oddNumbers"
+        [counter] = "odd" 
+        >
+      </app-odd>
+      <app-even 
+        *ngFor="let even of evenNumbers"
+        [counter] = "even"
+        >
+      </app-even>
+    </div>
   </div>
 </div>
