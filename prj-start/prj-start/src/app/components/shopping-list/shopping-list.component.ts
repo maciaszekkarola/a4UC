@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Ingredient } from '../../models/ingredient.model'
 @Component({
   selector: 'app-shopping-list',
@@ -6,6 +6,9 @@ import { Ingredient } from '../../models/ingredient.model'
   styleUrls: ['./shopping-list.component.css']
 })
 export class ShoppingListComponent implements OnInit {
+  @Input() activeState: {recipeActive: boolean, shoppingListActive: boolean};
+  
+  
   ingredients: Ingredient[] = [
     new Ingredient('Apples', 6),
     new Ingredient('Banana', 2),
