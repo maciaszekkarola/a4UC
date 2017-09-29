@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit {
       recipeActive: true,
       shoppingListActive: false
     });
-    console.log(this.emitterRecipe);
   }
 
   displayShoppingList() {
