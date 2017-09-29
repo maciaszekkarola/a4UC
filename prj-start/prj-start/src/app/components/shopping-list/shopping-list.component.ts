@@ -6,9 +6,6 @@ import { Ingredient } from '../../models/ingredient.model'
   styleUrls: ['./shopping-list.component.css']
 })
 export class ShoppingListComponent implements OnInit {
-  @Input() activeState: {recipeActive: boolean, shoppingListActive: boolean};
-  
-  
   ingredients: Ingredient[] = [
     new Ingredient('Apples', 6),
     new Ingredient('Banana', 2),
@@ -18,6 +15,12 @@ export class ShoppingListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+  itemAdded(itemData: Ingredient) {
+    this.ingredients.push({
+      name: itemData.name,
+      amount: itemData.amount
+    });
   }
 
 }

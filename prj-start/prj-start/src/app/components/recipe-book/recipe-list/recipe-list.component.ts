@@ -20,6 +20,10 @@ export class RecipeListComponent implements OnInit {
   ngOnInit() {
   }
 
+  //funkcja jako parametr otrzymuje recipe na wzór modelu Recipe, 
+  // w wowołaniu jako argument pobiera recipeElement i daje prypisuje 
+  //propsa które komunikuje się z dzieckiem [recipe] = "recipeElement"
+
   selectedRecipe(recipe: Recipe) {
     this.recipeSelectedGrandpa.emit(recipe);
   }

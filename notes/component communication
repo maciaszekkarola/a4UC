@@ -147,6 +147,36 @@ w rodzicu w html:
 <button (aliasName)="eventStart()"
 
 
+////////////////////////
+
+komunikacja między komponentami odbywa się na prostej drodze rodzic-dziecko albo dziecko-rodzci
+jesli jest to wiadomosc od rodzica do dziecka wtedy w dziecku dodaję dekorator
+
+@Input recipe: Recipe;
+ i propsa którego chcę połączyć
+w rodzicu gdzie dziecko jest zagniedżone w html muszę dodać [props] = "recipe"
+w dziecku w elemencie uzywam {{ recipe.name }}
+
+
+dziecko do rodzica
+@Output('emitter') emitter = new EventEmitter<Recipe>();
+
+tworze fukcje którą podłączam do dziecka które jest <a> albo do buttona
+i przez metodę emit() wysyłam to co potrzebuje rodzica 
+
+w rodzicu w html:
+na tagu dziecka dodaję event (emitter)="onSelected()"
+
+w ts: w 
+  onSelected(event) {
+    this.recipeEmitter.emit();
+  }
+
+}
+
+
+
+
 
 
 
