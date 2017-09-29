@@ -16,7 +16,7 @@ export class AppComponent {
     this.showShoppingList = false;
     
   }
-  enableShoppingList(emitterShopiing: {recipeActive: boolean, shoppingListActive: boolean}){
+  enableShoppingList(emitterShopping: {recipeActive: boolean, shoppingListActive: boolean}){
     this.showShoppingList = true;
     this.showRecipe = false;
    
