@@ -18,12 +18,17 @@
         <ul class="list-group">
           <li
             class="list-group-item"
-            *ngFor="let oddNumber of oddNumbers"  
+            *ngFor="let oddNumber of oddNumbers" 
+            [ngClass] = "{odd : onlyOdd === true }" 
           > 
              {{ oddNumber }} 
           </li>
         </ul>
       </ng-template>
+
+      <p appBetter >Style me with better directive</p>
+      
+      <p appBasicHighlight >Style me with basic directive</p>
     </div>
   </div>
 </div>

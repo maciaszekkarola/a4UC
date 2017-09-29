@@ -1,5 +1,3 @@
-attribute directive;
-
 import { Directive, ElementRef, OnInit } from '@angular/core';
 
 @Directive({
@@ -14,13 +12,3 @@ export class BasicHighlightDirective implements OnInit {
         this.elementRef.nativeElement.style.backgroundColor = 'green';
     }
 }
-
-
-/////////
-
-żeby jej użyć trzeba po pierwsze zainportować component w declarations w app.component
-a w komponencie w którym chce go użyc dodaję do taga atrybut (bez []!!!) 
-
-w html:
-
-<p appBasicHighlight>
