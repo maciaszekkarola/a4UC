@@ -50,6 +50,63 @@ odwolanie sie do wartosci inputa przez referencje w sposob bezposredni - czyli w
 albo opcja przy uzyciu wbudowanych narędzi, przy użyciu @ViewChild('loclareference')  i .nativeElement.value.
 
 
+///przykład
 
+Child:
+ts:
+export class ShoppingListEditComponent implements OnInit {
+  @Output() itemAddedEmitter = new EventEmitter<Ingredient>();
+  @ViewChild('nameInput') nameInputRef: ElementRef;
+  @ViewChild('amountInput') amountInputRef: ElementRef;
+  
+  constructor() { }
+
+  ngOnInit() {
+  }
+  onAdd(nameInput: HTMLInputElement, amountInput: HTMLInputElement) {
+    const ingName = this.nameInputRef.nativeElement.value;
+    const ingAmount = this.amountInputRef.nativeElement.value;
+    const newIngredient = new Ingredient(ingName, ingAmount);
+    
+    this.itemAddedEmitter.emit(newIngredient);
+  }
+
+}
+
+html:
+<div class="col-sm-5 form-group">
+        <input #nameInput>
+        <input #amountInput>
+</div>
+
+<button (click)="onAdd(nameInput, amountInput)">
+
+Parent:
+ts:
+(Model Ingredient ma dwa propsy: name i amount)
+
+export class ShoppingListComponent implements OnInit {
+  ingredients: Ingredient[] = [
+    new Ingredient('Apples', 6),
+    new Ingredient('Banana', 2),
+    new Ingredient('Bread', 1)
+  ];
+ 
+  constructor() { }
+
+  ngOnInit() {
+  }
+  itemAdded(ingrData: Ingredient) {
+    this.ingredients.push(ingrData);
+  }
+
+}
+
+html:
+<app-shopping-list-edit (itemAddedEmitter)="itemAdded($event)">
+</app-shopping-list-edit>
+ <a *ngFor = "let ingredient of ingredients"> 
+ {{ ingredient.name }} ({{ ingredient.amount }}) 
+</a>
 
 
