@@ -5,6 +5,7 @@
         class="btn btn-primary"
         (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
       <br><br>
+
       <ul class="list-group">
         <li
           class="list-group-item"
@@ -13,6 +14,7 @@
            {{ number }} 
         </li>
       </ul>
+
       <ng-template [ngIf]="onlyOdd">
         <p>Only odd </p>
         <ul class="list-group">
@@ -26,9 +28,43 @@
         </ul>
       </ng-template>
 
-      <p appBetter >Style me with better directive</p>
-      
       <p appBasicHighlight >Style me with basic directive</p>
+      <p appBetter >Style me with better directive</p>
+      <p appBetter [defaultColor] = "'yellow'" [defaultHighlight] = "'red'" >Style me with better directive and custom property color</p>
+      
     </div>
   </div>
+
+  <hr>
+  <div class="row">
+    <div class="col-12">
+      <p>Custom buil directive Unless</p>
+      <div *appUnless = "onlyOdd" >
+        <ul class="list-group">
+          <li
+            class="list-group-item"
+            *ngFor="let oddNumber of oddNumbers"  
+          > 
+             {{ oddNumber }} 
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <div class="row">
+    <div class="col-12">
+      <p>ngSwitch </p>
+      <div [ngSwitch] = "value">
+        <p *ngSwitchCase = "1">Value 1</p>
+        <p *ngSwitchCase = "10">Value 10</p>
+        <p *ngSwitchCase = "100">Value 100</p>
+        <p *ngSwitchDefault>default</p>
+      </div>
+    </div>
+  </div>
+
+
+
 </div>

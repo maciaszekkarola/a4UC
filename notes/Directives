@@ -24,3 +24,102 @@ a w komponencie w którym chce go użyc dodaję do taga atrybut (bez []!!!)
 w html:
 
 <p appBasicHighlight>
+
+/// lepszą opcją jest direktywa z renderowaniem
+
+import { Directive, OnInit, Renderer2, ElementRef, HostListener} from '@angular/core';
+
+@Directive({
+    selector: '[appBetter]'
+})
+export class BetterDirective implements OnInit {
+    
+    
+    constructor(private elRef: ElementRef, private renderer: Renderer2) {
+    }
+
+
+// wpisuję to w ngOninit jeśki chcę miec efekt dyrektywy po zaladowaniu komponentu
+    ngOnInit() {
+        // this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'red');
+}
+
+
+//albo w hostListenera jeśli dyrektywa ma wypalić na jakiś event.
+
+    //hover effect method
+
+    @HostListener('mouseenter') mouseover() {
+        this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'red');
+    }
+
+    @HostListener('mouseleave') mouseoleave() {
+        this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'transparent');
+    }
+}
+
+UZYWANIE @HOSTBINFING I @HOSTLISTENER	 POZWALA na uzywanie dyrektywy na kazdym elemencie na ktorym zostanie wywolany, nawet na tych ktorych nie ma w drzewie dom (przypadek wystepujacy bardzi rzadko)
+
+
+////////////////////////////////////////////
+
+Structural Directive (*ngFor, *ngIf)
+
+
+tworzenie wlasnej dyrektywy:
+
+import { 
+    Directive, 
+    OnInit, 
+    Input, 
+    TemplateRef, 
+    ViewContainerRef 
+} from '@angular/core';
+
+@Directive({
+    selector: '[appUnless]'
+})
+
+export class UnlessDirective implements OnInit {
+    @Input() set appUnless(condition: boolean){
+        if (!condition) {
+            this.vcRef.createEmbeddedView(this.templateRef);
+        } else {
+            this.vcRef.clear();
+        }
+
+    } 
+    constructor(
+        private templateRef: TemplateRef<any>, 
+        private vcRef: ViewContainerRef) {
+
+    }
+
+    ngOnInit() {
+    }
+}
+
+
+html:
+<div *appUnless = "onlyOdd" >
+    <p>wyswietli sie jesli onlyOnn = true</p>  
+</div>
+
+
+////
+*ngSwitchCase
+wyswietlanie na zasadzie case, jak ngIf, ale sprawdzające więcej przypadków jednoczenie.
+
+ts: 
+value = 10;
+html:
+
+<div [ngSwitch] = "value">
+        <p *ngSwitchCase = "1">Value 1</p>
+        <p *ngSwitchCase = "10">Value 10</p>
+        <p *ngSwitchCase = "100">Value 100</p>
+        <p *ngSwitchDefault>default</p>
+      </div>
+
+
+
