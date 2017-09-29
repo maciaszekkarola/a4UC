@@ -11,6 +11,9 @@ w klasie w dekoratorze Inputa deklaruję typy propsów:
 export class ServerElementComponent implements OnInit {
   @Input() element: {type: string, name: string, content: string};
 
+props [element] musi byc wykorzystany w rodzicu w htmlu jako łącznik
+<div [element]> 
+
 2. w komponencie rodzica:
 
 żeby wykorzystać typ z dziecka tworzę propsa (w tym przypadku tablicę obiektów - obiektów ponieważ props element: w dziecku jest obiektem!)
