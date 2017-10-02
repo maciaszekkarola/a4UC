@@ -10,6 +10,7 @@ import { RecipeService } from './recipe-book.service';
 })
 export class RecipeBookComponent implements OnInit {
   selectedRecipe: Recipe;
+
   constructor(private recipeService: RecipeService) { }
 
   ngOnInit() {
@@ -18,7 +19,7 @@ export class RecipeBookComponent implements OnInit {
       (recipe: Recipe) => {
         this.selectedRecipe = recipe;
       }
-    )
+    );
   }
 
 
