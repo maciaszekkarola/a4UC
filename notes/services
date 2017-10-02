@@ -1,0 +1,41 @@
+SERVICES
+
+/jest to pewnego rodzaju funkcja która zapobiega powtarzaniu tego samego kodu w różnych komponentach.
+
+1. tworzę test.service.ts
+
+
+export class LoggingService {
+    logStatusChange(status: string) {
+        console.log('A server status changed, new status: ' + status);
+    }
+}
+2. w komponencie gdzie jest użyta funkcja trzeba zaiportoować service, dodać go do providerów, i stworzyć konstruktor.
+
+
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { LoggingService } from '../logging.service';
+
+@Component({
+  selector: 'app-account',
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.css'],
+  providers: [LoggingService]
+})
+export class AccountComponent {
+  @Input() account: {name: string, status: string};
+  @Input() id: number;
+  @Output() statusChanged = new EventEmitter<{id: number, newStatus: string}>();
+
+    constructor(private loggingService: LoggingService) {
+
+  }
+
+3. w celu użycia odwołuję się do niego jak do zwykłego propsa,a potem wywołuję funkcje z services.ts.
+
+  onSetTo(status: string) {
+    this.statusChanged.emit({id: this.id, newStatus: status});
+    this.loggingService.logStatusChange(status);
+  }
+  
+}
