@@ -37,5 +37,15 @@ export class AccountComponent {
     this.statusChanged.emit({id: this.id, newStatus: status});
     this.loggingService.logStatusChange(status);
   }
-  
+ 
 }
+
+//////////////////////////
+Po dodaniu do komponnetu services w constructor wszystkie inne komponenty zaghnieżdzone wewnątrz rodzica mają też dostęp do tych metod. 
+
+w app. dodaję tylko jednen service
+
+/////////////////////////////
+
+
+
