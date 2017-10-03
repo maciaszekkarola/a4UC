@@ -14,8 +14,11 @@ RouterModule.forRoot(appRoutes)
 
 3. dodać <router-outlet> w html gdzie ma być outlet
 
-4. dodać 
+4. dodać :
 routerLink = "/" do linka
+(albo jeśli aplikacja jest bardziej skomplikowana mozna użyć podejścia tablicowego)
+[routerLink]= "['/server']"
+
 routerLinkActive = "active" 
 (albo inna klasa która będzie stylować)
 
@@ -67,6 +70,81 @@ this.route.params.subscribe(
     )
 
 
+przy używaniu susbkrypcji trzeba pamiętać o zabijaniu ich przy onDestroy!!!!
 
+
+ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+  }
+
+
+///////////////
+
+<a
+	[routerLink] = "['/servers', 5, 'edit']"
+        [queryParams] = "{allowEdit: '1'}"
+        fragment = "loading"
+></a>
+
+///////////////////////////////////
+ROUTER NESTING
+
+w appRoutes:
+const appRoutes: Routes = [
+  {path: '', component: HomeComponent},
+  {path: 'users', component: UsersComponent, children: [
+    {path: ':idRoute/:nameRoute', component: UserComponent},
+  ]},
+  {path: 'servers', component: ServersComponent, children: [
+    {path: ':id', component: ServerComponent},
+    {path: ':id/edit', component: EditServerComponent},
+  ]},
+];
+
+w html w komponencie Rodzica w miejsce renderowania dzieci daję po prostu <router-outlet>
+
+///////////////////// 
+WILD CARD 404
+ 
+w appRoutes dodaję scieżkę która pokrywa wszystkie możliwe błędne scieżki
+MUSI BYĆ ONA OSTATNIA w array bo plik kompiluje się od dołu do góry, więc jeśli 404 będzie piewsza w liście (a kompilowana jako ostatnia), to każda kolejna scieżka będzie "nadpisana"
+
+ {path: 'not-found', component: PageNotFoundComponent},
+ {path: '**', redirectTo: '/not-found'}
+
+
+
+/////////////////
+
+app-routing-module.ts
+
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+
+const appRoutes: Routes = [
+    {path: 'not-found', component: PageNotFoundComponent},
+    {path: '**', redirectTo: '/not-found'},
+  ];
+  
+@NgModule({
+  imports: [
+    RouterModule.forRoot(appRoutes)
+  ],
+  exports: [RouterModule]
+})
+
+
+export class AppRoutingModule {
+
+}
+
+
+w app.module.ts
+import { AppRoutingModule } from .....
+ 
+w importach w NgModule: [
+AppRoutingModule, 
 
 
