@@ -1,0 +1,53 @@
+ROUTER
+
+1. app module
+import { Routes, RouterModule } from '@angular/router';
+
+const appRoutes: Routes = [
+{ path: 'users', component: UsersComponent },
+{ path: 'users/edit', component: UsersEditComponent } 
+]
+
+2. dodać Router module w importach i wywołać funkcję żeby pobierało scieżki z tablicy
+
+RouterModule.forRoot(appRoutes)
+
+3. dodać <router-outlet> w html gdzie ma być outlet
+
+4. dodać 
+routerLink = "/" do linka
+routerLinkActive = "active" 
+(albo inna klasa która będzie stylować)
+
+5. do linka ze scieżką = "/" dodaję opcję, że moze być uznany za aktywny tylko wtedy kiedy jego scieżka jest dokladnie taka jak wskazuje routerLink
+
+[routerLinkActiveOptions] = "{exact: true}"
+
+/////////////////////////
+
+ROuting programmatically
+Po zainstnieniu jakiegoś zdarzenia przekierowuje mnie na inna stronę
+
+w komponencie:
+ts:
+import {Router}
+
+constructor ( private router: Router)
+
+onLoadServers() {
+ this.rourter.navigate('[/servers]')
+}
+
+
+html:
+
+<button (click) = "onLoadServers()"
+
+//////////////////////////
+dynamiczny routing
+
+w appRoutes, appModule
+
+{path: 'users/:id, component: UserComponent}
+
+
