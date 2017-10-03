@@ -50,4 +50,23 @@ w appRoutes, appModule
 
 {path: 'users/:id, component: UserComponent}
 
+po recznym dopisaniu do sciezki po users/ czegokolwiek pojawi się komponeny UserComponent
+
+//////////////////
+będąc w tym samym komponenci eniemozemy odswieżyć widoku używając funkcji snapshot.param.
+trzeba użyć subskrypcji
+
+// super ważne!!! to podejści sprawia że dane updateuja sie będa w tym samym komponencie!
+    
+this.route.params.subscribe(
+      (params: Params) => {
+        this.user.id = params['idRoute'];
+        this.user.name = params['nameRoute'];
+        
+      }
+    )
+
+
+
+
 
