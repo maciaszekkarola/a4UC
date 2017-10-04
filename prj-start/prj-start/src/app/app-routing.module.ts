@@ -1,3 +1,4 @@
+import { RecipeEditComponent } from './components/recipe-book/recipe-edit/recipe-edit.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -7,12 +8,15 @@ import { RecipeBookComponent } from './components/recipe-book/recipe-book.compon
 import { HomeRecipeComponent } from './components/recipe-book/home-recipe/home-recipe.component';
 import { RecipeDetailComponent } from './components/recipe-book/recipe-detail/recipe-detail.component';
 
-
+// ważne by wszystkie dynamicznie ładujące się strony były na końcu, bo w przypadku
+// new byłoby nieodnalezione przez angulara. czytanie z dołu do góry
 const appRoutes: Routes = [
     {path: '', redirectTo: '/recipes', pathMatch: 'full'},
     {path: 'recipes', component: RecipeBookComponent, children: [
       {path: '', component: HomeRecipeComponent},
-      {path: ':id', component: RecipeDetailComponent}
+      {path: 'new', component: RecipeEditComponent},
+      {path: ':id', component: RecipeDetailComponent},
+      {path: ':id/edit', component: RecipeEditComponent}
       
     ]},
     {path: 'shoppingList', component: ShoppingListComponent},

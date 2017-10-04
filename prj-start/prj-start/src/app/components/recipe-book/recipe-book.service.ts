@@ -36,6 +36,9 @@ export class RecipeService {
         return this.recipes.slice();
     }
 
+    // funckja potrzebna pobierania przepisu po indexie
+    // Przepis pobrany w komponencie RecipeDetail poprzez subscribe(), 
+    // ponieważ z listy po lewej caly czas mogę zmieniać wybrany przepis, dlatego nie mogę używać .snapshot
     getRecipe(index: number) {
         return this.recipes[index];
     }
