@@ -1,23 +1,23 @@
 <nav class = "navbar navbar-default collapse navbar-collapse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a href="#" class="navbar-brand">Recipe Book</a>
+      <a class="navbar-brand">Recipe Book</a>
     </div>
 
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="#" (click) = "displayRecipes()">Recipes</a></li>
-        <li><a href="#" (click) = "displayShoppingList()">Shoping List</a></li>
+        <li routerLinkActive = "active"><a routerLink = "/recipes">Recipes</a></li>
+        <li routerLinkActive = "active"><a routerLink = "/shoppingList">Shoping List</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown" appDropdown>
-          <a href = "#" class = "dropdown-toggle" role = "button">
+          <a class = "dropdown-toggle" role = "button">
              Manage <span class="caret"></span>
           </a>
-          <ul class="dropdown-menu">
-            <li class="dropdown"><a href="#">Save Data</a></li>        
-            <li class="dropdown"><a href="#">Fetch Data</a></li>
+          <ul class="dropdown-menu" style="cursor:pointer">
+            <li class="dropdown"><a>Save Data</a></li>        
+            <li class="dropdown"><a>Fetch Data</a></li>
           </ul>
         </li>
       </ul>
