@@ -1,3 +1,4 @@
+import { ServerResolver } from './servers/server/server-resolver.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -25,7 +26,7 @@ const appRoutes: Routes = [
     {path: ':idRoute/:nameRoute', component: UserComponent}
   ]},
   {path: 'servers', canActivateChild: [AuthGuard], component: ServersComponent, children: [
-    {path: ':id', component: ServerComponent},
+    {path: ':id', component: ServerComponent, resolve: {server: ServerResolver}},
     {path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuard]}
   ]},
   {path: 'not-found', component: PageNotFoundComponent},
@@ -48,9 +49,14 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     // AppRoutingModule
+    // RouterModule.forRoot(appRoutes, {useHash: true}) <= konfigurowanie na potrzebę serwera
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ServersService, AuthGuard, AuthService, CanDeactivateGuard],
+  providers: [ServersService, 
+    AuthGuard, 
+    AuthService, 
+    CanDeactivateGuard,
+    ServerResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

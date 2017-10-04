@@ -21,7 +21,8 @@ export class EditServerComponent implements OnInit, CanComponentDeactivate {
               private router: Router) { }
 
   ngOnInit() {
-    // test
+    // snapshot używa się wtedy kiedy route sie nie zmieni w trakcie zycia komponentu, 
+    // jesli będzie się zmieniało używa się subscribe()
     console.log(this.route.snapshot.queryParams);
     console.log(this.route.snapshot.fragment);
 
