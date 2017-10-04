@@ -1,0 +1,69 @@
+w service.ts
+
+1.Tworzę obiekt Subject w klasie UsersService
+
+import { Subject } from 'rxjs/Subject';
+
+export class UsersService {
+    userActivated = new Subject();
+}
+
+2.w app.module dodaję do providersów
+
+3. w app.component, albo w komponencie rodzica
+
+export class AppComponent implements OnInit {
+  user1Activated = false;
+  user2Activated = false;
+  
+  constructor( private usersService: UsersService) {}
+
+
+
+ngOnInit() {
+    this.usersService.userActivated.subscribe(
+      (id: number) => {
+        if (id === 1) {
+          this.user1Activated = true;
+        }
+        if (id === 2) {
+          this.user2Activated = true;
+        }
+
+      }
+    )
+  }
+}
+
+w html:
+
+      <a [routerLink]="['user', 1]">User 1 {{ user1Activated ? '(activated)' : ''}}</a>
+      <a [routerLink]="['user', 2]">User 2 {{ user2Activated ? '(activated)' : ''}}</a>
+
+4. w komponencie dziecka.ts
+
+
+export class UserComponent implements OnInit {
+  id: number;
+
+  constructor(private route: ActivatedRoute,
+              private usersService: UsersService) { }
+
+  ngOnInit() {
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.id = +params['id'];
+        }
+      );
+  }
+
+  onActivate() {
+    this.usersService.userActivated.next(this.id);
+  }
+}
+
+w html:
+<p>User with <strong>ID {{ id }}</strong> was loaded</p>
+<button class = "btn btn-primary" (click) = "onActivate()">Activate</button>
+
