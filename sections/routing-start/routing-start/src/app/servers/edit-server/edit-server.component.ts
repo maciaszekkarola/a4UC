@@ -1,5 +1,7 @@
+import { Observable } from 'rxjs/Observable';
+import { CanComponentDeactivate } from './can-deactivate-guard.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ServersService } from '../servers.service';
 
 @Component({
@@ -7,19 +9,22 @@ import { ServersService } from '../servers.service';
   templateUrl: './edit-server.component.html',
   styleUrls: ['./edit-server.component.css']
 })
-export class EditServerComponent implements OnInit {
+export class EditServerComponent implements OnInit, CanComponentDeactivate {
   server: {id: number, name: string, status: string};
   serverName = '';
   serverStatus = '';
   allowEdit = false;
+  changesSaved = false;
 
   constructor(private serversService: ServersService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
-    // test!  nie  działają i nic nie robią :)
+    // test
     console.log(this.route.snapshot.queryParams);
     console.log(this.route.snapshot.fragment);
+
     // odnosi się do server.comp.html
     this.route.queryParams.subscribe(
       (queryParams: Params) => {
@@ -35,6 +40,22 @@ export class EditServerComponent implements OnInit {
 
   onUpdateServer() {
     this.serversService.updateServer(this.server.id, {name: this.serverName, status: this.serverStatus});
+    this.changesSaved = true;
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
-}
+  // funkcja zapobiegająca wyjściu ze scieżki bez zapisania zmian,
+  // 
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if (!this.allowEdit) {
+      return true;
+    }
+    if ((this.serverName !== this.server.name || this.serverStatus !== this.server.status) && 
+    !this.changesSaved) {
+      return confirm('Do you want to discard the changes?');
+    }else {
+      return true;
+    }
+  }
+
+}  

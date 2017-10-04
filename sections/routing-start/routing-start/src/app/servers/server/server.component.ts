@@ -20,7 +20,7 @@ export class ServerComponent implements OnInit {
     
     // const id = parseInt(this.route.snapshot.params['id'], 10);
     const id = +this.route.snapshot.params['id'];
-    
+   
     this.server = this.serversService.getServer(id);
     
 
