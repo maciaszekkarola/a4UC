@@ -6,7 +6,10 @@
       <form (ngSubmit)="onSubmit()" #f="ngForm">
         <!-- opcja z przekazaniem argumentu w funkcji -->
       <!-- <form (ngSubmit)="onSubmit(f)" #f="ngForm"> -->
-        <div id="user-data">
+        <div 
+          id="user-data" 
+          ngModelGroup="userData"
+          #userData = "ngModelGroup">
           <div class="form-group">
             <label for="username">Username</label>
             <input 
@@ -17,7 +20,7 @@
               name="username"
               required>
           </div>
-          <button class="btn btn-default" type="button">Suggest an Username</button>
+          <button (click)="suggestUserName()" class="btn btn-default" type="button">Suggest an Username</button>
           <div class="form-group">
             <label for="email">Mail</label>
             <input 
@@ -32,17 +35,46 @@
               <span *ngIf="!email.valid && email.touched" class="help-block">Please enter valid email!</span>
           </div>
         </div>
+
+        <p *ngIf="!userData.valid && userData.touched">
+          This group is invalid, please correct inputs
+        </p>
+
         <div class="form-group">
           <label for="secret">Secret Questions</label>
           <select 
             id="secret" 
             class="form-control"
-            ngModel
+            [ngModel]="defaultQ"
             name = "secret">
             <option value="pet">Your first Pet?</option>
             <option value="teacher">Your first teacher?</option>
           </select>
         </div>
+
+        <div class = "form-goup">
+          <textarea 
+            class = "form-control"  
+            [(ngModel)] ="answer"
+            name="questionAnswer" 
+            id="" 
+            rows="5">
+          </textarea>
+          <p>Your reply: {{ answer }}</p>
+        </div>
+        
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input 
+              type="radio"
+              name="gender"
+              [value]="gender"
+              [ngModel]="genders[0]"
+            >{{ gender}}
+          </label>
+        </div> 
+
+
         <button 
         [disabled]="!f.valid"
           class="btn btn-primary" 

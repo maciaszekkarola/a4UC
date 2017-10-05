@@ -46,5 +46,19 @@ do inputa dopisuje  <input #email="ngModel">
 poniżej
 <span *ngIf = "!email.valid && email.touched"> 
 
+/////////////////////////
+USTAWIANIE DEFAULTOWEJ WARTOSCI 
+
+ts.
+defaultVal = 'pet'
+html:
+<select [ngModel] = "defaultV"></>
+<option name="pet">gkjhhj</>
+
+////////////////////
+GROUPING IN FORM I VALIDACJA
+po dodaniu ngModelGroup do diva zewnętrznego pojawia sie nowy obiekt!
+
+w divie owijającym dodaję ngModelGroup = "tu jakis string"
 
 
