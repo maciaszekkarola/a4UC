@@ -1,0 +1,28 @@
+///////////////////////////////////////
+REACTIVE FORM 
+
+1.props:
+singupForm: FormGroup;
+2.import { ReactiveFormsModule } from '@angular/forms';
+zammiast FormModule. to jest tylko do templateDrivenForm;
+
+3. w komponencie dodaję:
+ngOnInit() {
+    this.singupForm = new FormGroup({
+      'username': new FormControl(null),
+      'email': new FormControl(null),
+      'gender': new FormControl('female')
+    });
+  }
+
+4. w html
+<form [formGroup]="signupForm"> 
+<input
+            type="text"
+            id="username"
+            formControlName="username"
+            class="form-control">
+
+
+"username" w formControl odnosi się do obiektu signupForm: FormGroup
+

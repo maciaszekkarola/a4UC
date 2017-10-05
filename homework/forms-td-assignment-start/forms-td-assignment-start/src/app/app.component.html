@@ -39,7 +39,7 @@
               id="subs" 
               name="subSelect" 
               [ngModel]="defaultOption">
-              <option *ngFor="let option of subOptions" value="{{option}}" >
+              <option *ngFor="let option of subOptions" [value]="option" >
                 {{option}}
               </option>
             </select>
@@ -56,7 +56,7 @@
           ngModel
           required>
         </div>
-        <span *ngIf="!pass.value && pass.touched" class="help-block">empty password</span>
+        <span *ngIf="!pass.valid && pass.touched" class="help-block">empty password</span>
         
         <button class = "btn btn-primary" type="submit">Submit</button>
        
