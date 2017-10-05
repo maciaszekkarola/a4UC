@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +8,21 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class AppComponent implements OnInit{
   genders = ['male', 'female'];
-  singupForm: FormGroup;
+  signupForm: FormGroup;
 
+  // default value w gender jest wpisywane od razu przy create new FormControl
   ngOnInit() {
-    this.singupForm = new FormGroup({
-      'username': new FormControl(null),
-      'email': new FormControl(null),
+    this.signupForm = new FormGroup({
+      'userData': new FormGroup({
+        'username': new FormControl(null, Validators.required),
+        'email': new FormControl(null, [Validators.required, Validators.email]),
+      }),
       'gender': new FormControl('female')
     });
+  }
+
+  onSubmit() {
+    console.log(this.signupForm.value);
   }
 
 }

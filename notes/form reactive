@@ -26,3 +26,64 @@ ngOnInit() {
 
 "username" w formControl odnosi się do obiektu signupForm: FormGroup
 
+
+///////////////////
+WALIDACJA
+
+nie odbywa się w html, tylko  ts
+
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+ngOnInit() {
+    this.signupForm = new FormGroup({
+      'username': new FormControl(null, Validators.required),
+      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'gender': new FormControl('female')
+    });
+  }
+
+
+//////////////////////////////////////
+WIADOMOSC POD INPUTEM Z VALIDACJA
+
+<span 
+          *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched" 
+          class ="help-block">
+          Please enter valid username!
+        </span>
+
+
+wywołuje sie metodę.get() i pobiera się z obiektu FormGroup wartość która nas interesuje 'username' 
+
+////////////////////////////
+
+jeśli grupujem:
+ts:
+ngOnInit() {
+    this.signupForm = new FormGroup({
+      'userData': new FormGroup({
+        'username': new FormControl(null, Validators.required),
+        'email': new FormControl(null, [Validators.required, Validators.email]),
+      }),
+      'gender': new FormControl('female')
+    });
+  }
+
+
+html:
+
+ <div formGroupName="userData">
+..........
+<span 
+                *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched" 
+                class ="help-block">
+                Please enter valid username!
+              </span>
+
+
+
+owijający div otrzymuje propsa
+
+ważna jest scieżka w metodzie get(), ponieważ powstaje nowy obiekt w przetrzymujący username to należy go dodać w metodzie
+
+
