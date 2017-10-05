@@ -1,0 +1,50 @@
+Dwa przyklady:
+template driven (html napisany od góry do dołu, pełny formularz) i reactive (interaktywny, update w trakcie uzupełniania)
+
+
+1. Import {FormsModule}
+dodać do importów do tablicy
+2. w html po pojawieniu się tagu <form> angular zarządza formularzem jakby to była dyrektywa.
+2.<input name="username" ngModel>
+3. <form (ngSubmit)="onSubmit(f) #f="ngForm">
+
+4. file.ts
+onSubmit(form: NgForm) {
+console.log(form.value.username)
+
+
+////////////
+
+blokowanie wysyłania: html
+w <form #f="ngForm" (ngSubmit)="onSubmit()"> 
+<button [disabled]="!f.value.username"type="submit">Submit</button>
+
+
+button:
+1. jeśli chce zablokować tak ze wszystkie pola muszą być uzupełnione poprawnie:
+button [disabled]="!f.valid"
+2. jeśli chce zeby sprawdzić czy username nie jest puste:
+button [disabled]="!f.value.username"
+
+//////////////
+
+stylowanie invalid forms
+każdy element otrzymuje klasę od angulara, którą można dowolnie stylować
+
+1. input ktory byl dotkniety, ale nie jest uzupełniony poprawnie
+input.ng-invalid.ng-touched{
+  border: 1px solid red;
+}
+2. uzupełniony poprawnie:
+input.ng-valid {
+  background-color: #D3F8C1;
+}
+//////////////////////////
+WIADOMOSC DO UZYTKOWNIKA JESLI ZOSTALO COS ZLE WPROWADZONE
+
+do inputa dopisuje  <input #email="ngModel">
+poniżej
+<span *ngIf = "!email.valid && email.touched"> 
+
+
+

@@ -1,0 +1,12 @@
+.container {
+  margin-top: 30px;
+}
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched{
+  border: 1px solid red;
+}
+input.ng-untouched, select.ng-untouched{
+  background-color: #E6E6E6;
+}
+input.ng-valid {
+  background-color: #D3F8C1;
+}
