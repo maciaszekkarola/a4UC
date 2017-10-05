@@ -1,6 +1,7 @@
 Dwa przyklady:
 template driven (html napisany od góry do dołu, pełny formularz) i reactive (interaktywny, update w trakcie uzupełniania)
 
+TEMPLATE DRIVER FORM!
 
 1. Import {FormsModule}
 dodać do importów do tablicy
@@ -27,6 +28,13 @@ button [disabled]="!f.valid"
 button [disabled]="!f.value.username"
 
 //////////////
+VALIDACJA
+
+<input ngModel name="email" required email>
+
+dwa ostatnie parametry są wbudowanym walidatorem od angulara, pierwszy sprawdza czy jest wprowadzona jakas wartośc, a druga czy jest to email.
+
+/////////////
 
 stylowanie invalid forms
 każdy element otrzymuje klasę od angulara, którą można dowolnie stylować
@@ -42,7 +50,14 @@ input.ng-valid {
 //////////////////////////
 WIADOMOSC DO UZYTKOWNIKA JESLI ZOSTALO COS ZLE WPROWADZONE
 
-do inputa dopisuje  <input #email="ngModel">
+do inputa dopisuje  <input 
+            class = "form-control" 
+            type="email" 
+            name="email" 
+            ngModel
+            email 
+            #email = "ngModel" 
+            required>
 poniżej
 <span *ngIf = "!email.valid && email.touched"> 
 
@@ -61,4 +76,39 @@ po dodaniu ngModelGroup do diva zewnętrznego pojawia sie nowy obiekt!
 
 w divie owijającym dodaję ngModelGroup = "tu jakis string"
 
+
+////////////////////////////////////
+podsumowanie i wypisanie wszystkich wartości po kliknieciu przycisku submit
+
+ts:
+user: {
+name: '',
+email: '',
+gender: ''
+
+}
+1. onSubmit() {
+	this.user.name = this.signupForm.value.userData.name;
+	this.user.email = this.signupForm.value.userData.email; 
+	this.user.gender = this.signupForm.value.gender
+}
+
+((dwa pierwsze elementy sa zawiniete w grupe o nazwue userData, ostatni jest poza nia))
+
+html:
+
+h3>Your Data: </h3>
+      <p>Username: {{ user.username }} </p>
+      <p>Email Address: {{ user.email }}</p>
+      <p>Gender: {{ user.gender }}</p>
+
+
+
+
+
+///////////////////////////
+
+CZYSZCZENIE FORMULARZY!
+
+this.signupForm.reset();
 
