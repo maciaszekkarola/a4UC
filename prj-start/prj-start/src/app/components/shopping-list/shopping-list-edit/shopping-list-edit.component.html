@@ -10,8 +10,9 @@
             type="text" 
             id="name" 
             class="form-control"
-            name="nameInput"
+            name="name"
             ngModel
+            required
           >
         </div>
         <div class="col-sm-2 form-group">
@@ -20,17 +21,21 @@
             type="number" 
             id="amount" 
             class ="form-control"
-            name="amountInput"
+            name="amount"
             ngModel 
+            required
+            pattern="^[1-9]+[0-9]*$"
           >
+          <!-- Ten wzór dopuszcza tylko liczby wieksze od 0 [pattern]="'^[1-9]+[0-9]*$'" to to samo co pattern="^[1-9]+[0-9]*$" -->
         </div>
 
         <div class="row">
           <div class="col-xs-12">
             <button 
               class="btn btn-success" 
-              type="submit">
-                Add
+              type="submit"
+              [disabled]="!form.valid">
+                {{ editMode ? 'Update' : 'Add' }}
             </button>
             <button class="btn btn-danger" type="button">Delete</button>
             <button class="btn btn-primary" type="button">Clear</button>
