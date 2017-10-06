@@ -41,17 +41,18 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
     unsubscriber(this.subscriptions);
    }
 
-  onAddItem(form: NgForm) {
+  onSubmit(form: NgForm) {
     const value = form.value;
     const newIngredient = new Ingredient(value.name, value.amount);
 
     // warunek = jesli jest edit mode to na miejscu starego zapisywany jest nowy
     if (this.editMode) {
       this.shoppingListService.updateIngr(this.editedItemIndex, newIngredient);
-      this.editMode = false;
     }else {
       this.shoppingListService.addIngredient(newIngredient);
     }
+    this.editMode = false;
+    form.reset();
 
   }
 
