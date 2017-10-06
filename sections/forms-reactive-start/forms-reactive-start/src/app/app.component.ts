@@ -24,6 +24,27 @@ export class AppComponent implements OnInit{
       'gender': new FormControl('female'),
       'hobbies': new FormArray([])
     });
+    // this.signupForm.valueChanges.subscribe(
+    //   (value) => {console.log(value);}
+    // );
+    this.signupForm.statusChanges.subscribe(
+      (status) => {console.log(status); }
+    );
+    // sets value, ale wszystkie jednoczenie! wszystkie klucze/wartości muszą być uzupełnione
+    this.signupForm.setValue({
+      userData: {
+        username: 'Karolina',
+        email: 'op@.pl'
+      },
+      gender: 'female',
+      hobbies: []
+    });
+    // ustawia tylkko wybrane wartości
+    this.signupForm.patchValue({
+      userData: {
+        email: 'karolina@op.pl'
+      }
+    });
   }
 
   onSubmit() {
@@ -31,6 +52,7 @@ export class AppComponent implements OnInit{
     this.signupForm.reset();
   }
 
+  // reaktywny formularz
   onAddHobby() {
     const control = new FormControl(null, Validators.required);
     (<FormArray>this.signupForm.get('hobbies')).push(control);
@@ -45,7 +67,7 @@ export class AppComponent implements OnInit{
     }
   }
 
-  // async validator - tutaj symulacja z uzyciem Timeouta, in-valid => pending => valid
+  // async validator - tutaj symulacja z uzyciem Timeouta, STATE: in-valid => pending => valid
   forbiddenEmails (control: FormControl): Promise<any> | Observable<any> {
     const promise = new Promise<any> ((resolve, reject) => {
       setTimeout( () => {

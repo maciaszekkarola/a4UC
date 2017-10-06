@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!--
+          Create a Form with the following Controls and Validators
+          1) Project Name (should not be empty)
+          2) Mail (should not be a empty and a valid email)
+          3) Project Status Dropdown, with three values: 'Stable', 'Critical', 'Finished'
+          4) Submit Button
+
+          Add your own Validator which doesn't allow "Test" as a Project Name
+
+          Also implement that Validator as an async Validator (replace the other one)
+
+          Upon submitting the form, simply print the value to the console
+      -->
+
+      <form [formGroup] = "statusForm" (ngSubmit)="onSubmit()">
+
+        <div class = "form-group">
+          <label for="name">Name</label>
+          <input 
+            formControlName="name"
+            class="form-control" 
+            type="text" 
+            id="name">
+        </div>
+        <span *ngIf="!statusForm.get('name').valid && statusForm.get('name').touched">
+            <span *ngIf="statusForm.get('name').errors['nameIsForbidden']" class ="help-block">Test name is invalid!</span>
+            <span *ngIf="statusForm.get('name').errors['required']" class ="help-block">Test name is required!</span>
+        </span>
+
+        <div class = "form-group">    
+          <label for="email">Email</label>
+          <input 
+            formControlName="email"
+            class="form-control" 
+            type="email" 
+            id="email">
+        </div>
+        <span *ngIf="!statusForm.get('email').valid && statusForm.get('email').touched">
+          Email Invalid!
+        </span>
+
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select 
+            formControlName="statusProject"
+            class="form-control"
+            id="status"
+            >
+              <option 
+                class="form-control"
+                [value]="status" 
+                *ngFor="let status of stats"
+                >
+                  {{status}}
+            </option>
+          </select>
+        </div>  
+
+        <button 
+          [disabled]="!statusForm.valid"
+          class="btn btn-default" 
+          type="submit">
+            Submit
+      </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="submited">
+    <div class="col-xs-12">
+      <h2>Data:</h2>
+      <p> Name: {{ data.name }}</p>
+      <p> email: {{ data.mail }}</p>
+      <p> status: {{ data.status }}</p>
+    </div>
+  </div>
+</div>
