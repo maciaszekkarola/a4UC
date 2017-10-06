@@ -57,7 +57,7 @@ wywołuje sie metodę.get() i pobiera się z obiektu FormGroup wartość która 
 
 ////////////////////////////
 
-jeśli grupujem:
+jeśli grupujemy:
 ts:
 ngOnInit() {
     this.signupForm = new FormGroup({
@@ -85,5 +85,100 @@ html:
 owijający div otrzymuje propsa
 
 ważna jest scieżka w metodzie get(), ponieważ powstaje nowy obiekt w przetrzymujący username to należy go dodać w metodzie
+///////////////////////
+REAKTYWNE DODAWANIE ELEMENTOW DO FORMULARZA
+
+html:
+<div formArrayName="hobbies">
+          <div class="form-group">
+              <h4>Your Hobbies:</h4>
+              <button 
+                (click)="onAddHobby()"
+                class="btn btn-default" 
+                type="button">
+                Add Hobby
+              </button>
+          </div>
+          <div class="form-group" 
+            *ngFor="let hobbiesControl of signupForm.get('hobbies').controls; let i = index">
+              <input 
+                type="text" 
+                class = "form-control" 
+                [formControlName] =  "i"> 
+          </div>
+        </div>
+
+
+WAŻNE:
+iteruję po tablicy signupForm.get('hobbies').controls, i dodatkowo pobieram index zeby moc wysiwetlic te hobby wlasnie po indexie!
+
+w inpucie przez property bonding łączę [formControlName] =  "i"
+
+
+ts:
+ngOnInit() {
+    this.signupForm = new FormGroup({
+      'userData': new FormGroup({
+        'username': new FormControl(null, Validators.required),
+        'email': new FormControl(null, [Validators.required, Validators.email]),
+      }),
+      'gender': new FormControl('female'),
+      'hobbies': new FormArray([])
+    });
+  }
+
+Imporuję FormArray i tworze formControl który jets tablicą
+
+Potem:
+tworze funkcję dodającą hobby
+
+onAddHobby() {
+    const control = new FormControl(null, Validators.required);
+    (<FormArray>this.signupForm.get('hobbies')).push(control);
+  }
+///////////////////////////////////////////
+WALIDATOR WLASNY
+class: 
+  forbiddenNames = ['Anna', 'Zosia'];
+
+ngOnInit() {
+    this.signupForm = new FormGroup({
+      'userData': new FormGroup({
+        'username': new FormControl(null, [Validators.required, this.forbiddenValidator.bind(this)]),
+        'email': new FormControl(null, [Validators.required, Validators.email]),
+      }),
+      'gender': new FormControl('female'),
+      'hobbies': new FormArray([])
+    });
+  
+// funkcja indexOf jeśli nie znajdzie elementu w tablicy zwraca -1, czyli "true"
+  forbiddenValidator(control: FormControl): {[s: string]: boolean} {
+    if (this.forbiddenNames.indexOf(control.value) !== -1) {
+      return { 'nameisForbidden' : true};
+    } else {
+      return null;
+    }
+  }
+
+
+html: 
+JESLI CHCE UMIESCIC INFORMACJE O BLEDZIE W SPANIE
+
+<span 
+              *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched" 
+              class ="help-block">
+                <span 
+                *ngIf="signupForm.get('userData.username').errors['nameisForbidden']" 
+                class ="help-block">
+                This name is invalid!
+                </span>
+                <span 
+                *ngIf="signupForm.get('userData.username').errors['required']" 
+                class ="help-block">
+                This name is required!
+                </span>
+            </span>
+      
+funkcja get()przenosi mnie do miejsca ktore mnie interesuje omijając inne pola obiektu w miedzyczasie
 
 
