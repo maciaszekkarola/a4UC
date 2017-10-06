@@ -34,7 +34,6 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
           }
         )
     );
-
   }
 
   ngOnDestroy() {
@@ -53,7 +52,6 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
     }
     this.editMode = false;
     form.reset();
-
   }
 
 }
