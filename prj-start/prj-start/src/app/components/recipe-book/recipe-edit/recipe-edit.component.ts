@@ -48,7 +48,7 @@ export class RecipeEditComponent implements OnInit {
         recipeName = recipe.name; 
         recipeImgPath = recipe.imagePath;
         description = recipe.description;
-        
+
         if (recipe['ingredients']) {
           for (let ingredient of recipe.ingredients) {
             ingrName.push(
@@ -84,8 +84,9 @@ export class RecipeEditComponent implements OnInit {
         this.recipeService.updateRecipe(this.id, newRecipe);
       } else {
         this.recipeService.addRecipe(newRecipe);
-
+        this.router.navigate(['../'], {relativeTo: this.route});
       }
+      this.onCancel();
     }
 
     //  nie ma wartości w new Form, bo dadaję nowy skladnik!
