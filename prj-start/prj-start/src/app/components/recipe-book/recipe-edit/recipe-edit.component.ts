@@ -102,6 +102,12 @@ export class RecipeEditComponent implements OnInit {
       );
     }
 
+    // albo zamiast splice(index, 1) można użyc po prostu jednej z metod wewnątrz controls: removeAt(index)
+    onDeleteIngrItem(index: number) {
+      (<FormArray>this.recipeForm.get('ingredients')).controls.splice(index, 1);
+      
+    }
+
     // naviguje mnie do jednego poziomu wyżej 
     onCancel() {
       this.router.navigate(['../'], {relativeTo: this.route});

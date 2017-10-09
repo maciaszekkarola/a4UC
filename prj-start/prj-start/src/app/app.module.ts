@@ -1,3 +1,4 @@
+import { RecipeService } from './components/recipe-book/recipe-book.service';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -40,7 +41,7 @@ import { RecipeEditComponent } from './components/recipe-book/recipe-edit/recipe
     HttpModule,
     AppRoutingModule
   ],
-  providers: [ShoppingListService],
+  providers: [ShoppingListService, RecipeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
