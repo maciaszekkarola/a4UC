@@ -47,6 +47,7 @@
               type="text" 
               id="imagePath"
               class="form-control"
+              #imagePath
             >
           </div>
           <span 
@@ -57,7 +58,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <img src="" class="img-responsive">
+            <img [src]="imagePath.value" class="img-responsive">
           </div>
         </div>
       </div>
@@ -105,7 +106,7 @@
                     >
                 </div>
                 <div class="col-xs-2">
-                    <button class="btn btn-danger">X</button>
+                    <button (click)="onDeleteIngrItem()" class="btn btn-danger">X</button>
                 </div>
               </div>
               <span
