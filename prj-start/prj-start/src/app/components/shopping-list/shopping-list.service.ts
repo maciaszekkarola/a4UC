@@ -1,5 +1,5 @@
+import { Ingredient } from './../../models/ingredient.model';
 import { Subject } from 'rxjs/Subject';
-import { Ingredient } from '../../models/ingredient.model';
 
 export class ShoppingListService {
     ingrChanged = new Subject<Ingredient[]>();
@@ -32,4 +32,10 @@ export class ShoppingListService {
         this.ingredients[index] = newIngredient;
         this.ingrChanged.next(this.ingredients.slice());
     }
+
+    deleteIngr(index: number) {
+        this.ingredients.splice(index, 1)
+        this.ingrChanged.next(this.ingredients.slice());
+    }
+
 }

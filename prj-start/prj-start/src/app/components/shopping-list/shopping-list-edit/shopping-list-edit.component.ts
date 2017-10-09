@@ -13,9 +13,10 @@ import unsubscriber from '../../../shared/unsubscriber';
 export class ShoppingListEditComponent implements OnInit, OnDestroy {
   @ViewChild('form') slForm: NgForm;
   private subscriptions: Subscription[] = [];
-  editMode = false;
-  editedItemIndex: number;
-  editedItem: Ingredient;
+  private editMode = false;
+  private editedItemIndex: number;
+  private editedItem: Ingredient;
+  private ingrArr = [];
 
   constructor(private shoppingListService: ShoppingListService) { }
 
@@ -52,6 +53,16 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
     }
     this.editMode = false;
     form.reset();
+  }
+  
+  onClear() {
+    this.slForm.reset();
+    this.editMode = false;
+  }
+
+  onDelete() {
+    this.shoppingListService.deleteIngr(this.editedItemIndex);
+    this.onClear();
   }
 
 }
