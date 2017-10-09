@@ -1,7 +1,8 @@
+import { Recipe } from './../../../models/recipe.model';
 import { Ingredient } from './../../../models/ingredient.model';
 import { RecipeService } from './../recipe-book.service';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -15,7 +16,8 @@ export class RecipeEditComponent implements OnInit {
   private recipeForm: FormGroup;
 
   constructor(private route: ActivatedRoute,
-              private recipeService: RecipeService) { }
+              private recipeService: RecipeService,
+              private router: Router) { }
 
   // +params['id'] - w appRouting odnosze się do :id
   ngOnInit() {
@@ -46,6 +48,7 @@ export class RecipeEditComponent implements OnInit {
         recipeName = recipe.name; 
         recipeImgPath = recipe.imagePath;
         description = recipe.description;
+        
         if (recipe['ingredients']) {
           for (let ingredient of recipe.ingredients) {
             ingrName.push(
@@ -69,8 +72,20 @@ export class RecipeEditComponent implements OnInit {
       });
     }
 
+    // ta metoda odpala się na przycisk SAVE ponieważ button ma type="submit"
     onSubmit() {
-      console.log('form submited!');
+      const newRecipe = new Recipe(
+        this.recipeForm.value['name'],
+        this.recipeForm.value['description'],
+        this.recipeForm.value['imagePath'],
+        this.recipeForm.value['ingredients']);
+
+      if (this.editMode) {
+        this.recipeService.updateRecipe(this.id, newRecipe);
+      } else {
+        this.recipeService.addRecipe(newRecipe);
+
+      }
     }
 
     //  nie ma wartości w new Form, bo dadaję nowy skladnik!
@@ -84,8 +99,14 @@ export class RecipeEditComponent implements OnInit {
           ])
         })
       );
-      console.log(this.recipeForm.get('name'));
     }
+
+    // naviguje mnie do jednego poziomu wyżej 
+    onCancel() {
+      this.router.navigate(['../'], {relativeTo: this.route});
+    }
+
+    
 
     
 

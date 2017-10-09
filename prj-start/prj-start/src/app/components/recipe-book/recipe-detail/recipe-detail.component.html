@@ -24,7 +24,7 @@
             <ul class="dropdown-menu" style="cursor:pointer">
                 <li><a [routerLink] = "['/shoppingList']"(click)="onAddToShoppingList()" >Shopping List</a></li>
                 <li><a (click) = "onEditRecipe()">Edit Recipe</a></li>
-                <li><a>Detele Recipe</a></li>
+                <li><a (click)="onDeleteRecipe()">Detele Recipe</a></li>
             </ul>
         </div>
     </div>
