@@ -1,3 +1,4 @@
+import { ShoppingListService } from './../shopping-list/shopping-list.service';
 import { RecipeService } from './../recipe-book/recipe-book.service';
 import { Response } from '@angular/http';
 import { DataStorageService } from './../../shared/data-storage.service';
@@ -11,7 +12,8 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   constructor(private dataStorageService: DataStorageService,
-              private recipeService: RecipeService
+              private recipeService: RecipeService, 
+              private slService: ShoppingListService
               ) { }
 
   ngOnInit() {
@@ -23,11 +25,17 @@ export class HeaderComponent implements OnInit {
         (response: Response) => {
           console.log(response);
         }
-      )
+      );
+    this.dataStorageService.storeShopingList()
+      .subscribe(
+        (response: Response) => {
+          console.log(response);
+        }
+      );  
   }
 
   onFetchData() {
     this.dataStorageService.fetchRecipes();
-      
+    this.dataStorageService.fetchShoppingList();
   }
 }
