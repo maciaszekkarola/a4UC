@@ -24,7 +24,7 @@ export class ServersService {
     // po dodaniu metody catch mozna wpisac tres komunikatu w konsoli albo wpisac tam po prostu
     // error zeby wyswietlic błąd
     getServers() {
-        return this.http.get('https://udemy-http-7dc3f.firebaseio.com/')
+        return this.http.get('https://udemy-http-7dc3f.firebaseio.com/data.json')
         .map(
             (response: Response) => {
                 const data = response.json();
@@ -41,12 +41,13 @@ export class ServersService {
         );
     }
 
+    // w html do {{ appName }} dodaję pipe | async zeby otrzymac dane 
     getAppName() {
         return this.http.get('https://udemy-http-7dc3f.firebaseio.com/AppName.json')
             .map(
                 (response: Response) => {
                     return response = response.json();
                 }
-            )
+            );
     }
 }

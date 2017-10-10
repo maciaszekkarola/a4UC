@@ -1,14 +1,16 @@
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { Http, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Recipe } from '../../models/recipe.model';
 import { Ingredient } from '../../models/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import 'rxjs/Rx';
 
 @Injectable()
 
 export class RecipeService {
     recipesChanged = new Subject<Recipe[]>();
-
 
     private recipes: Recipe[] = [
         new Recipe(
@@ -32,6 +34,12 @@ export class RecipeService {
     ];
 
     constructor(private shoppingListService: ShoppingListService) {}
+    
+    setRecipes(recipes: Recipe[]) {
+        this.recipes = recipes;
+        this.recipesChanged.next(this.recipes.slice());
+
+    }    
 
       // get the copy of Array of recipes
     getRecipes() {

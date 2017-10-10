@@ -1,3 +1,4 @@
+import { DataStorageService } from './shared/data-storage.service';
 import { RecipeService } from './components/recipe-book/recipe-book.service';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
@@ -41,7 +42,7 @@ import { RecipeEditComponent } from './components/recipe-book/recipe-edit/recipe
     HttpModule,
     AppRoutingModule
   ],
-  providers: [ShoppingListService, RecipeService],
+  providers: [ShoppingListService, RecipeService, DataStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
