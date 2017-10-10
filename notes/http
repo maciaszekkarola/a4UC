@@ -28,7 +28,13 @@ export class ServersService {
     }
 
     getServers() {
-        return this.http.get('https://udemy-http-7dc3f.firebaseio.com/data.json');
+        return this.http.put('https://udemy-http-7dc3f.firebaseio.com/data.json')
+        .map(
+            (response: Response) => {
+                const data = response.json();
+                return data;
+            }
+        );
     }
 }
 
@@ -40,14 +46,33 @@ constructor(private serverService: ServersService) {}
 onGet() {
     this.serverService.getServers()
       .subscribe(
-        (response: Response) => {
-          const data = response.json();
-          console.log(data);
-          return data;
+        (servers: any[]) => {
+          console.log(servers);
         }
       );
   }
 
+
+
+//////////////////////////////////////////////////
+
+
+
+
 /////////////////////////////////////////////////////////
 
+FIREBASE
+
+Ważne by w regułach ddoać zapis który umożliwia odczyt i zapis:
+{
+  "rules": {
+    ".read": "true",
+    ".write": "true"
+  }
+}
+
+
+Link który jest podany przez Firebase jako URL musi wskazuwać angularowi ze jest on w formacie json! ...../data.json
+
+get('https://udemy-http-7dc3f.firebaseio.com/data.json')
 

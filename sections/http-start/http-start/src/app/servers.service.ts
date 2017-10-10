@@ -1,5 +1,7 @@
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
+import 'rxjs/Rx';
 
 @Injectable()
 
@@ -18,7 +20,24 @@ export class ServersService {
         );
     }
 
+
+    // po dodaniu metody catch mozna wpisac tres komunikatu w konsoli albo wpisac tam po prostu
+    // error zeby wyswietlic błąd
     getServers() {
-        return this.http.get('https://udemy-http-7dc3f.firebaseio.com/data.json');
+        return this.http.get('https://udemy-http-7dc3f.firebaseio.com/')
+        .map(
+            (response: Response) => {
+                const data = response.json();
+                for (const server of data) {
+                    server.name = 'FETCHED_' + server.name;
+                }
+                return data;
+            }
+        )
+        .catch(
+            (error: Response) => {
+                return Observable.throw('Something went wrong...');
+            }
+        );
     }
 }

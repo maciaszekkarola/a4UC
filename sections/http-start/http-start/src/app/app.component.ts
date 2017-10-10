@@ -42,14 +42,12 @@ export class AppComponent implements OnInit {
         (error) => console.log(error)
       );
   }
+
   onGet() {
     this.serverService.getServers()
       .subscribe(
-        (response: Response) => {
-          const data = response.json();
-          console.log(data);
-          return data;
-        }
+        (servers: any[]) => this.servers = servers,
+        (error) => console.log(error),
       );
   }
 
