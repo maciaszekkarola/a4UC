@@ -1,0 +1,53 @@
+HTTP
+
+1. app module
+import { HttpModule } from '@angular/http';
+
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule
+  ],
+  providers: [ServersService],
+
+2. tworzę servers.service.ts
+
+import { Injectable } from '@angular/core';
+import { Http, Headers } from '@angular/http';
+
+@Injectable()
+
+export class ServersService {
+
+    constructor(private http: Http) { }
+
+
+    storeServers(servers: any[]) {
+        return this.http.post('https://udemy-http-7dc3f.firebaseio.com/data.json',
+        servers);
+    }
+
+    getServers() {
+        return this.http.get('https://udemy-http-7dc3f.firebaseio.com/data.json');
+    }
+}
+
+
+3. w komponencie
+import { ServersService } from './servers.service';
+constructor(private serverService: ServersService) {}
+
+onGet() {
+    this.serverService.getServers()
+      .subscribe(
+        (response: Response) => {
+          const data = response.json();
+          console.log(data);
+          return data;
+        }
+      );
+  }
+
+/////////////////////////////////////////////////////////
+
+

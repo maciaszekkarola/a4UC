@@ -1,0 +1,137 @@
+PIPES
+
+konfigurowanie built in pipes
+{{ xxxxx | date: 'fullDate' }}
+
+
+łączenie pipes:
+{{ server.started | date: 'fullDate' | uppercase}}
+ wykonują się od lewej do prawej!
+
+
+custom made pipes:
+
+1.shortne.pipe.ts
+import { PipeTransform, Pipe } from '@angular/core';
+
+@Pipe({
+   name: 'shorten'
+})
+export class ShortenPipe implements PipeTransform {
+    transform(value: any) {
+        if (value.length > 10) {
+            return value.substr(0, 10) + '... ';
+        };
+        return value;
+    }
+}
+
+2. app.module.ts
+dodaje do deklaracji i importuję shorten.pipe.ts
+
+3. w pliku html dodaję po nazwie skróconej
+
+{{ zzzz | shorten }}
+
+//////////////////////////
+
+custom made pipe z argumentem 
+
+
+transform(value: any, limit: number) {
+
+html:
+{{xxxx | shorten: 10 }}
+
+////////////////////////////
+tworzenie filer pipes
+
+
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'filter'
+})
+export class FilterPipe implements PipeTransform {
+
+  transform(value: any, filterString: string, propName: string): any {
+    if (value.length === 0 || filterString === '') {
+      return value;
+    }
+    const resultArray = [];
+    for (const item of value) {
+      if (item[propName] === filterString) {
+        resultArray.push(item);
+      }
+    }
+    return resultArray;
+  }
+
+}
+
+
+html: <input type="text" [(ngModel)]="filterStatus">
+      <button class="brn btn-primary" (click) = "onAdd()">Add Server</button>
+      <hr>
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let server of servers | filter:filterStatus:'status'"
+          [ngClass]="getStatusClasses(server)">
+          <span
+            class="badge">
+            {{ server.status }}
+          </span>
+          <strong>{{ server.name | shorten: 10}}</strong> | 
+          {{ server.instanceType | uppercase}} | 
+          {{ server.started | date: 'fullDate' | uppercase}}
+        </li>
+      </ul>
+    </div>
+
+///////////////////////////////
+
+ASYNC
+
+///////////////////////////////////
+
+SORTING by ALPHABET
+
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'sort',
+  pure: false
+})
+export class SortPipe implements PipeTransform {
+
+  transform(value: any, propName: string): any {
+    value.sort((a, b) => {
+      if (a[propName] > b[propName]) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+    return value;
+  }
+
+}
+
+
+HYML:
+ *ngFor="let server of servers | sort:'name' "
+
+'name' jest propsem w klasie w tablicy servers, ale odkąd iteruję po niej, nie odwołuję się do jej nazwy.
+
+servers = [
+    {
+      instanceType: 'medium',
+      name: 'Production',
+      status: 'stable',
+      started: new Date(15, 1, 2017)
+    },
+.......
+]
+
+
