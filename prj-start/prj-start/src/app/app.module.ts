@@ -1,5 +1,3 @@
-import { DataStorageService } from './shared/data-storage.service';
-import { RecipeService } from './components/recipe-book/recipe-book.service';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -19,6 +17,11 @@ import { DropdownDirective } from './shared/dropdown.directive';
 import { ShoppingListService } from './components/shopping-list/shopping-list.service';
 import { HomeRecipeComponent } from './components/recipe-book/home-recipe/home-recipe.component';
 import { RecipeEditComponent } from './components/recipe-book/recipe-edit/recipe-edit.component';
+import { SignupComponent } from './components/auth/signup/signup.component';
+import { SigninComponent } from './components/auth/signin/signin.component';
+import { AuthService } from './components/auth/auth.service';
+import { DataStorageService } from './shared/data-storage.service';
+import { RecipeService } from './components/recipe-book/recipe-book.service';
 
 
 @NgModule({
@@ -33,7 +36,9 @@ import { RecipeEditComponent } from './components/recipe-book/recipe-edit/recipe
     RecipeDetailComponent,
     DropdownDirective,
     HomeRecipeComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    SignupComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,12 @@ import { RecipeEditComponent } from './components/recipe-book/recipe-edit/recipe
     HttpModule,
     AppRoutingModule
   ],
-  providers: [ShoppingListService, RecipeService, DataStorageService],
+  providers: [
+    ShoppingListService, 
+    RecipeService, 
+    DataStorageService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

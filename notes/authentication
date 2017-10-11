@@ -1,0 +1,27 @@
+w SPA oparta na tokenach. Token to specjalny identyfikator ktory umowzliwia uzytkownikowi wykowywanie czynnosci ktore sa dozwolone dopiero po np.zalogowaniu
+
+
+Żeby użyć opcji z authentication w firebase, najpier musze go zainstalować w projekcie
+
+npm i --save firebase
+
+w app.components
+import * as firebase from 'firebase';
+
+ ngOnInit() {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyDKYK-elJhuzc6bVHyuw78oymnyQnDmG38',
+      authDomain: 'udemy-http-7dc3f.firebaseapp.com',
+    });
+  }
+
+
+w metodzie initializeApp daję dwie pary wartości z konfiguraji firebase. po zalogownaiu sie, w projekcie=>authentication=> konfiguracja internetowa => 
+pobieram apiKey i authDomain
+
+Jeśli się pojawi problem z z polyfill :
+npm install promise-polyfill --save-exact
+
+po zalogowaniu użytkownika powinna sie pojawic informacja w dziale autentication
+
+
