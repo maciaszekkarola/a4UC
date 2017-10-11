@@ -1,4 +1,3 @@
-import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase';
@@ -9,7 +8,7 @@ export class AuthService {
     token: string;
 
     constructor(private router: Router,
-        private route: ActivatedRoute) { }
+                private route: ActivatedRoute) { }
     
     signupUser(email: string, password: string) {
         firebase.auth().createUserWithEmailAndPassword(email, password)
