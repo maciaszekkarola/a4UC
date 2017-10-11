@@ -1,3 +1,4 @@
+import { AuthService } from './../../auth/auth.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -14,6 +15,7 @@ export class RecipeDetailComponent implements OnInit{
     id:  number;
 
     constructor (private recipeService: RecipeService,
+                private authService: AuthService,
                 private route: ActivatedRoute, 
                 private router: Router) {}
     
@@ -34,11 +36,16 @@ export class RecipeDetailComponent implements OnInit{
         // ponieważ zanim klinke przycisk edit  to juz jetsem na sciezke 0 albo 1 więc edit dodaje się do sciezki - relative path
         // jeśli chcialbym skorzystać z podejścia gdzie idę piętro wyżej, to wyglądałoby to tak:
         // this.router.navigate(['../', this.id, 'edit'], .....) ,musiałabym się odwołać do ID które jest inicjalizowane w OnInit
-        this.router.navigate(['edit'], {relativeTo: this.route});
+        if (this.authService.isAuthenticated()) {
+        this.router.navigate(['edit'], {relativeTo: this.route})
+        }else {
+            this.router.navigate(['/signin'], {relativeTo: this.route});
+            
+        }
     }
 
     onDeleteRecipe() {
-        this.recipeService.deleteRecipe(this.id);
-        this.router.navigate([''], {relativeTo: this.route});
+            this.recipeService.deleteRecipe(this.id);
+            this.router.navigate([''], {relativeTo: this.route});
     }
 }

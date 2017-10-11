@@ -1,3 +1,4 @@
+import { LogoutComponent } from './components/auth/logout/logout.component';
 import { SigninComponent } from './components/auth/signin/signin.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { RecipeEditComponent } from './components/recipe-book/recipe-edit/recipe-edit.component';
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
     {path: 'shoppingList', component: ShoppingListComponent},
     {path: 'signup', component: SignupComponent},
     {path: 'signin', component: SigninComponent},
+    {path: 'logout', component: LogoutComponent},
 ];
 
 @NgModule({

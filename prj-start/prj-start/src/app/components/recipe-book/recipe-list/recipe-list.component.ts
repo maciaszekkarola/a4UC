@@ -40,10 +40,6 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     }else {
       this.router.navigate(['../signin'], {relativeTo: this.route});
     }
-
-    // 
-    // this.router.navigate(['new'], {relativeTo: this.route});
-
   }
 
   

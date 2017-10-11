@@ -24,6 +24,7 @@ import { AuthService } from './components/auth/auth.service';
 import { DataStorageService } from './shared/data-storage.service';
 import { RecipeService } from './components/recipe-book/recipe-book.service';
 import { AuthGuard } from './components/auth/auth-guard.service';
+import { LogoutComponent } from './components/auth/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AuthGuard } from './components/auth/auth-guard.service';
     HomeRecipeComponent,
     RecipeEditComponent,
     SignupComponent,
-    SigninComponent
+    SigninComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
