@@ -1,3 +1,4 @@
+import { AuthService } from './../auth/auth.service';
 import { ShoppingListService } from './../shopping-list/shopping-list.service';
 import { RecipeService } from './../recipe-book/recipe-book.service';
 import { Response } from '@angular/http';
@@ -13,7 +14,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(private dataStorageService: DataStorageService,
               private recipeService: RecipeService, 
-              private slService: ShoppingListService
+              private slService: ShoppingListService,
+              private authService: AuthService
               ) { }
 
   ngOnInit() {

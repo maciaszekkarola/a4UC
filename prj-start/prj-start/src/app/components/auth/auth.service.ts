@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 export class AuthService {
     token: string;
 
+    
     signupUser(email: string, password: string) {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .catch(
@@ -31,5 +32,11 @@ export class AuthService {
                 (token: string) => this.token = token
         );
         return this.token;
+    }
+
+    // funkcja która będzie informować czy użytkownik jets zalogowany
+    // jeśli jest zalogowany to będzie token, jesli nie to token będzie null
+    isAuthenticated() {
+        return this.token != null;
     }
 }
