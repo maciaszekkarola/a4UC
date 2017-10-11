@@ -1,11 +1,22 @@
+import { Injectable } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase';
+
+@Injectable()
 
 export class AuthService {
     token: string;
 
+    constructor(private router: Router,
+        private route: ActivatedRoute) { }
     
     signupUser(email: string, password: string) {
         firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(
+            (response) => {
+                this.router.navigate( ['../recipes'] , {relativeTo: this.route});
+            }
+        )
             .catch(
                 error => console.log(error)
             );
@@ -14,6 +25,7 @@ export class AuthService {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(
                 response => {
+                    this.router.navigate( ['../recipes'] , {relativeTo: this.route});
                     firebase.auth().currentUser.getToken()
                         .then(
                             (token: string) => this.token = token

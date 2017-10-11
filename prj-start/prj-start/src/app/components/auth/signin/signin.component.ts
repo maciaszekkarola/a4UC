@@ -22,7 +22,7 @@ export class SigninComponent implements OnInit {
     const password = form.value.password;
     this.authService.signinUser(email, password);
 
-    this.router.navigate( ['../recipes'], {relativeTo: this.route})
+    // this.router.navigate( ['../recipes'], {relativeTo: this.route})
   }
  
 
