@@ -1,3 +1,4 @@
+import { AuthService } from './../components/auth/auth.service';
 import { Ingredient } from './../models/ingredient.model';
 import { Recipe } from './../models/recipe.model';
 import { RecipeService } from './../components/recipe-book/recipe-book.service';
@@ -6,21 +7,29 @@ import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import { ShoppingListService } from 'app/components/shopping-list/shopping-list.service';
 
+const url = 'https://recipe-book-c850b.firebaseio.com/';
+
 @Injectable()
 
 export class DataStorageService {
-
+    
     constructor(private http: Http,
                 private recipeService: RecipeService,
-                private slService: ShoppingListService) {} 
+                private slService: ShoppingListService,
+                private authService: AuthService) {} 
+
+    
 
     storeRecipes() {
-        return this.http.put('https://recipe-book-c850b.firebaseio.com/recipes.json', 
+        const token = this.authService.getToken()
+        return this.http.put(`${url}recipes.json?auth=${token}`, 
         this.recipeService.getRecipes() );
     }
 
     fetchRecipes() {
-        return this.http.get('https://recipe-book-c850b.firebaseio.com/recipes.json')
+       const token = this.authService.getToken();
+        
+        return this.http.get(`${url}recipes.json?auth=${token}`)
             .map(
                 (response: Response) => {
                     const recipes: Recipe[] = response.json();
@@ -40,12 +49,14 @@ export class DataStorageService {
     }
 
     storeShopingList() {
-        return this.http.put('https://recipe-book-c850b.firebaseio.com/shoppingList.json', 
+        const token = this.authService.getToken()
+        return this.http.put(`${url}shoppingList.json?auth=${token}`, 
         this.slService.getIngredients() );
     }
 
     fetchShoppingList() {
-        return this.http.get('https://recipe-book-c850b.firebaseio.com/shoppingList.json')
+        const token = this.authService.getToken(); 
+        return this.http.get(`${url}shoppingList.json?auth=${token}`)
             .map(
                 (response: Response) => {
                     const ingredients: Ingredient[] = response.json();
