@@ -24,4 +24,52 @@ npm install promise-polyfill --save-exact
 
 po zalogowaniu użytkownika powinna sie pojawic informacja w dziale autentication
 
+/////////////////////////////////////////////
+
+TOKEN
+
+getToken() {
+        firebase.auth().currentUser.getToken()
+            .then(
+                (token: string) => this.token = token
+        );
+        return this.token;
+    }
+
+
+
+potem tej funkcji używam za każdym razem kiedy czynności wymagające authentification (zapisywanie / pobieranie danych z serwera), tak żeby użytkownik mial pelen dostep do funkcji bez koniecznosci potwierdzania swojej tożsamości.
+
+
+By móc korzystać w tokena należy do dopisać do URL na końcu ......json?auth=${TOKEN}
+
+zapis :
+storeRecipes() {
+        const token = this.authService.getToken()
+        return this.http.put(`${url}recipes.json?auth=${token}`, 
+        this.recipeService.getRecipes() );
+    }
+
+pobranie danych:
+fetchRecipes() {
+       const token = this.authService.getToken();
+        
+        return this.http.get(`${url}recipes.json?auth=${token}`)
+            .map(
+                (response: Response) => {
+                    const recipes: Recipe[] = response.json();
+                    for (let recipe of recipes) {
+                        if (!recipe['ingredients']) {
+                            recipe['ingredients'] = [];
+                        }
+                    }
+                    return recipes;
+                }
+            )
+            .subscribe(
+                (recipes: Recipe[]) => {
+                    this.recipeService.setRecipes(recipes);
+                }
+            );
+    }
 

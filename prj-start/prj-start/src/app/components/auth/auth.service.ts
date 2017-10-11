@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase';
@@ -33,9 +34,8 @@ export class AuthService {
                 }
             )
             .catch(
-                error => console.log(error)
+                error => console.log(error.message)
             );
-            console.log('loggedin!');
     }
 
     getToken() {
@@ -56,4 +56,6 @@ export class AuthService {
         firebase.auth().signOut();
         this.token = null;
     }
+
+    
 }
