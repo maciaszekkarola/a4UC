@@ -1,3 +1,4 @@
+
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -22,7 +23,7 @@ import { SigninComponent } from './components/auth/signin/signin.component';
 import { AuthService } from './components/auth/auth.service';
 import { DataStorageService } from './shared/data-storage.service';
 import { RecipeService } from './components/recipe-book/recipe-book.service';
-
+import { AuthGuard } from './components/auth/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { RecipeService } from './components/recipe-book/recipe-book.service';
     ShoppingListService, 
     RecipeService, 
     DataStorageService,
-    AuthService
+    AuthService, 
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

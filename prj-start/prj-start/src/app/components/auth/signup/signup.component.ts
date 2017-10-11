@@ -11,9 +11,7 @@ import { NgForm } from '@angular/forms';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private authService: AuthService, 
-              private router: Router,
-              private route: ActivatedRoute) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -22,7 +20,5 @@ export class SignupComponent implements OnInit {
     const email = form.value.email;
     const password = form.value.password;
     this.authService.signupUser(email, password);
-
-    // this.router.navigate( ['../recipes'] , {relativeTo: this.route})
   }
 }

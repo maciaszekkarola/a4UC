@@ -9,6 +9,7 @@ import { RecipeListComponent } from './components/recipe-book/recipe-list/recipe
 import { RecipeBookComponent } from './components/recipe-book/recipe-book.component';
 import { HomeRecipeComponent } from './components/recipe-book/home-recipe/home-recipe.component';
 import { RecipeDetailComponent } from './components/recipe-book/recipe-detail/recipe-detail.component';
+import { AuthGuard } from 'app/components/auth/auth-guard.service';
 
 // ważne by wszystkie dynamicznie ładujące się strony były na końcu, bo w przypadku
 // new byłoby nieodnalezione przez angulara. czytanie z dołu do góry
@@ -16,9 +17,9 @@ const appRoutes: Routes = [
     {path: '', redirectTo: '/recipes', pathMatch: 'full'},
     {path: 'recipes', component: RecipeBookComponent, children: [
       {path: '', component: HomeRecipeComponent},
-      {path: 'new', component: RecipeEditComponent},
+      {path: 'new', component: RecipeEditComponent, canActivate: [AuthGuard] },
       {path: ':id', component: RecipeDetailComponent},
-      {path: ':id/edit', component: RecipeEditComponent}
+      {path: ':id/edit', component: RecipeEditComponent, canActivate: [AuthGuard]}
       
     ]},
     {path: 'shoppingList', component: ShoppingListComponent},
