@@ -33,3 +33,10 @@ const recipesRoutes: Routes = [
         {path: ':id/edit', component: RecipeEditComponent, canActivate: [AuthGuard]}
     ]},
 ];
+
+
+
+//////////////////////////////////////////
+
+mozna isc o krok dalej i przeneisc tez service.ts do roznych modulów
+
