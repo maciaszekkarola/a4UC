@@ -1,7 +1,6 @@
 import { AuthModule } from './components/auth/auth.module';
 import { ShoppingModule } from './components/shopping-list/shopping.module';
 import { SharedModule } from './shared/shared.module';
-import { RecipesModule } from './components/recipe-book/recipes.module';
 import { AppRoutingModule } from 'app/app-routing.module';
 
 import { RouterModule } from '@angular/router';
@@ -29,7 +28,6 @@ import { HomeComponent } from './components/home/home.component';
     BrowserModule,
     HttpModule,
     AppRoutingModule,
-    RecipesModule,
     ShoppingModule,
     AuthModule,
     SharedModule

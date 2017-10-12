@@ -11,13 +11,25 @@ jesli uzytkownik nie wejdzie w jakis modul kod nie jest wykonany. normalne w js 
 dodaję scieżkę, do path: '', 
 
 3.
-zeby uniknac ladowania wszystkiego na raz trzeba usunac te komponenty w app module, bo na start to od razy jest ladowane, wszystko co jest w deklaracjach!
+zeby uniknac ladowania wszystkiego na raz trzeba usunac te komponenty i moduły w app module, bo na start to od razy jest ladowane, wszystko co jest w deklaracjach i importach!!
+
 
  
 w  app module dodaję scieżkę do tego co chce zeby ladowlo sie lazy
 
-{path: 'recipe', loadChildren: './recipes/recipe.module#RecipesModule'},
+{path: 'recipes', loadChildren: './recipes/recipe.module#RecipesModule'},
 
 
 recipe.module#RecipesModule'
 pierwsza czesc odnosi się do ścieżki, a druga nazwa odnosi sie do nazwy klasy ktora reprezentuje dany moduł
+
+4. w module gdzie używam lazyLoading:
+nie muszę określać pierwszej sciezki rodzica bo jest ona w domysle 'recipes'
+const recipesRoutes: Routes = [
+    {path: '', component: RecipeBookComponent, children: [
+        {path: '', component: HomeRecipeComponent},
+        {path: 'new', component: RecipeEditComponent, canActivate: [AuthGuard] },
+        {path: ':id', component: RecipeDetailComponent},
+        {path: ':id/edit', component: RecipeEditComponent, canActivate: [AuthGuard]}
+    ]},
+];
