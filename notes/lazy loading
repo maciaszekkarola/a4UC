@@ -1,0 +1,23 @@
+////////////////////////////
+LAZY loading
+
+super wazne dla poprawy performance strony.
+ladujemy tylko te moduly ktore sa aktualnie uzywane!
+jesli uzytkownik nie wejdzie w jakis modul kod nie jest wykonany. normalne w js zanim strona sie wywola przgladarka ogarnia caly kod i niepotrzebne wykonuje go calego.
+
+1. tworzę komponnet HOME
+
+2. 
+dodaję scieżkę, do path: '', 
+
+3.
+zeby uniknac ladowania wszystkiego na raz trzeba usunac te komponenty w app module, bo na start to od razy jest ladowane, wszystko co jest w deklaracjach!
+
+ 
+w  app module dodaję scieżkę do tego co chce zeby ladowlo sie lazy
+
+{path: 'recipe', loadChildren: './recipes/recipe.module#RecipesModule'},
+
+
+recipe.module#RecipesModule'
+pierwsza czesc odnosi się do ścieżki, a druga nazwa odnosi sie do nazwy klasy ktora reprezentuje dany moduł

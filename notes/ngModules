@@ -64,10 +64,6 @@ export class SharedModule {
 }
 3. dodaję sharedModule w app module i importuję go. Wazne by usunac dyrektywy ktore moga jeszcze pozostac w deklaracjach bo to bedzie powodowalo bład! moga być przecież użyte tylko raz!
 sharedModule importuję wszędzie tam gdzie jest potrzebny!
-
-
-
-
 /////////////////////////////////////
 
 

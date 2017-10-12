@@ -10,7 +10,7 @@ import { AuthGuard } from 'app/components/auth/auth-guard.service';
 // ważne by wszystkie dynamicznie ładujące się strony były na końcu, bo w przypadku
 // new byłoby nieodnalezione przez angulara. czytanie z dołu do góry
 const recipesRoutes: Routes = [
-    {path: 'recipes', component: RecipeBookComponent, children: [
+    {path: '', component: RecipeBookComponent, children: [
         {path: '', component: HomeRecipeComponent},
         {path: 'new', component: RecipeEditComponent, canActivate: [AuthGuard] },
         {path: ':id', component: RecipeDetailComponent},
