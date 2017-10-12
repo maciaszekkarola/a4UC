@@ -1,0 +1,73 @@
+///////////////////////////////////
+ngModules
+
+1. tworzenie fearture module - czyli modulu ktory przetrzymuje wszystkie elementy dotyczace jednego "działu"
+
+2. 
+importuję wszstkie potrzebne komponenty
+i dodaję je do deklaracji,
+
+3.
+w imports [
+CommonModule,
+RecipesRoutingModule (dopiero jak stowrzę nowy routing module)
+]
+
+daję modułu z których korzystam w tej części. UWAGA! 
+Wszytskie moduły pośrednie muszą zawierać COMMONMODULE
+podczas gdy główny moduł app.module zawiera BROWSERModule!
+
+4. tworzę plik Xrouting.module.ts dla tego modułu
+prznosze wszystkei sciezki które dotyczą obsługi rodziny komponentu
+
+const recipesRoutes: Routes = [
+    {path: 'recipes', component: RecipeBookComponent, children: [
+        {path: '', component: HomeRecipeComponent},
+        {path: 'new', component: RecipeEditComponent, canActivate: [AuthGuard] },
+        {path: ':id', component: RecipeDetailComponent},
+        {path: ':id/edit', component: RecipeEditComponent, canActivate: [AuthGuard]}
+    ]},
+];
+
+
+@NgModule({
+    imports: [RouterModule.forChild(recipesRoutes)],
+    exports: [RouterModule]
+})
+
+
+	SUPER WAŻNE! importuję .forChild(recipesRoutes)
+
+5. importuję w X.module.ts (patrz punkt 3)
+ 
+
+///////////////////////////
+ważna uwaga! nie można importować dwa razy tego samego componentu,pipes, dyrektywy itp w dwoch miejscach. np dyrektywa tora jest używana w wielu meijsach.
+moduł może być ale nie te wymienione wyżej!
+
+1.
+Towrzę shared.module.ts
+2. dodaję w ngModules deklarację i EXPORTS! gdzie eksportuję pliki które chce zeby byly używane w wielu miejsach jednoczesnie! ważne by dodać teć CommonModule w exportach!
+
+@NgModule({
+    declarations: [
+        DropdownDirective
+    ],
+    exports: [
+        CommonModule,
+        DropdownDirective
+    ]
+})
+
+export class SharedModule {
+
+}
+3. dodaję sharedModule w app module i importuję go. Wazne by usunac dyrektywy ktore moga jeszcze pozostac w deklaracjach bo to bedzie powodowalo bład! moga być przecież użyte tylko raz!
+sharedModule importuję wszędzie tam gdzie jest potrzebny!
+
+
+
+
+/////////////////////////////////////
+
+
