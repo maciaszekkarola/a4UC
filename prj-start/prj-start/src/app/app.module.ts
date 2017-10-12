@@ -7,11 +7,11 @@ import { AppRoutingModule } from 'app/app-routing.module';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
+
 import { ShoppingListService } from './components/shopping-list/shopping-list.service';
 import { AuthService } from './components/auth/auth.service';
 import { DataStorageService } from './shared/data-storage.service';
@@ -25,7 +25,6 @@ import { AuthGuard } from './components/auth/auth-guard.service';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpModule,
     AppRoutingModule,
     RecipesModule,
