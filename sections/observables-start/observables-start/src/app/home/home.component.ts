@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subscriptions.push(myObservable.subscribe(
       (data: string) => { console.log(data); },
       (error: string) => { console.log(error); },
+      () => { console.log('completed'); }
     ));
   }
 
