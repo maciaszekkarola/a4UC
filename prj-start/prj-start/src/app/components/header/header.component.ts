@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from './../auth/auth.service';
 import { ShoppingListService } from './../shopping-list/shopping-list.service';
 import { RecipeService } from './../recipe-book/recipe-book.service';
@@ -15,7 +16,9 @@ export class HeaderComponent implements OnInit {
   constructor(private dataStorageService: DataStorageService,
               private recipeService: RecipeService, 
               private slService: ShoppingListService,
-              private authService: AuthService
+              private authService: AuthService,
+              private router: Router,
+              private route: ActivatedRoute
               ) { }
 
   ngOnInit() {
@@ -43,5 +46,6 @@ export class HeaderComponent implements OnInit {
 
   onLogout() {
     this.authService.logout();
+    this.router.navigate( ['../'], {relativeTo: this.route});
   }
 }
