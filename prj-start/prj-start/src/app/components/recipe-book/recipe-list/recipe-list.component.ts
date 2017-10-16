@@ -21,12 +21,15 @@ export class RecipeListComponent implements OnInit, OnDestroy {
               private authService: AuthService) { }
 
   ngOnInit() {
+    // dodaje nowe przepisy
     this.subscriptions.push(this.recipeService.recipesChanged
     .subscribe(
       (recipes: Recipe[]) => {
         this.recipes = recipes;
       }
     ));
+
+    // wyswietla przepisy z bazy danych
     this.recipes = this.recipeService.getRecipes();
   }
 
